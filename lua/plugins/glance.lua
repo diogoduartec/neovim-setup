@@ -1,9 +1,14 @@
 return {
   "dnlhc/glance.nvim",
+  depedencies = {
+      "EdenEast/nightfox.nvim",
+  },
   config = function()
     -- Lua configuration
     local glance = require('glance')
-    local actions = glance.actions
+
+    require('nightfox').setup()
+    vim.cmd("colorscheme nightfox")
 
     glance.setup({
       height = 18, -- Height of the window
@@ -36,7 +41,7 @@ return {
       },
       theme = { -- This feature might not work properly in nvim-0.7.2
         enable = true, -- Will generate colors for the plugin based on your current colorscheme
-        mode = 'auto', -- 'brighten'|'darken'|'auto', 'auto' will set mode based on the brightness of your colorscheme
+        mode = 'brighten', -- 'brighten'|'darken'|'auto', 'auto' will set mode based on the brightness of your colorscheme
       },
       hooks = {},
       folds = {

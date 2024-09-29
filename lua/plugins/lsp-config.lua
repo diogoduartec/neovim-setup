@@ -18,7 +18,7 @@ return {
     local lspconfig = require("lspconfig")
 
     mason_lspconfig.setup({
-      ensure_installed = { "lua_ls", "pylyzer" }
+      ensure_installed = { "lua_ls", "pyright" }
     })
 
     --lua setup

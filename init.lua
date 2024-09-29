@@ -18,6 +18,7 @@ vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.clipboard = "unnamed"
 vim.opt.colorcolumn = "120"
+vim.opt.exrc = true
 
 -- Lazy setup
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

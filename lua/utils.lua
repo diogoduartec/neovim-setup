@@ -18,20 +18,18 @@ M.close_view = function()
 end
 
 M.close_all = function()
-  -- Close all buffers
   local buffers = vim.api.nvim_list_bufs()
   for _, buf in ipairs(buffers) do
     if vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) ~= '' then
-      vim.api.nvim_buf_delete(buf, {}) -- Forcefully delete the buffer
+      if vim.api.nvim_buf_get_option(buf, "modified") then
+        vim.api.nvim_buf_call(buf, function() vim.cmd("silent! write") end) -- Save the buffer
+      end
+      vim.api.nvim_buf_delete(buf, {})
     end
   end
-  -- Close the Neo-tree if it's open
-  -- if require('neo-tree.sources.manager').is_open('filesystem') then
-  --   require('neo-tree.command').execute({ action = 'close' })
-  -- end
+
   vim.cmd("Neotree close")
 
-  -- Close quickfix and location list if open
   if #vim.fn.getqflist() > 0 then
     vim.cmd('cclose') -- close quickfix list
   end

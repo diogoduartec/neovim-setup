@@ -19,6 +19,11 @@ vim.opt.cursorline = true
 vim.opt.clipboard = "unnamed"
 vim.opt.colorcolumn = "120"
 vim.opt.exrc = true
+vim.o.wrap = false
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'  -- If using Tree-sitter for folding
+vim.o.foldmethod = 'manual'
+
 
 -- Lazy setup
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -35,6 +40,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
+require("post-lazy").setup()
 require("maps")
 
-vim.cmd("colorscheme nightfox")

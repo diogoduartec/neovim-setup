@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 
 local utils = require("utils")
+local post_lazy = require("post-lazy")
 
 local function map(mode, lhs, rhs)
 	vim.keymap.set(mode, lhs, rhs, { noremap = false, silent = true })
@@ -8,6 +9,17 @@ end
 
 -- General
 vim.api.nvim_create_user_command('Q', utils.close_all, {})
+-- Create a Neovim command called :Theme
+vim.api.nvim_create_user_command(
+  'Theme',
+  function(args)
+    local opts = {}
+    opts['theme'] = args.args
+    -- Call setup_theme with parsed options
+    post_lazy.setup(opts)
+  end,
+  { nargs = "*" } -- Accept any number of arguments
+)
 map("n", "<C-h>", utils.move_right)
 map("n", "<C-l>", utils.move_left)
 map("n", "<C-j>", utils.move_down)
@@ -115,3 +127,9 @@ map('n', '<leader>d', gitsigns.diffthis)
 
 -- Text object
 map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+
+-- Unmap default Copilot keys
+vim.cmd("imap <silent><script><expr> <C-j> copilot#Accept('')")
+
+-- Map right arrow key to trigger Copilot autocomplete
+vim.api.nvim_set_keymap("i", "<Right>", 'copilot#Accept("<Right>")', { silent = true, expr = true })

@@ -4,6 +4,12 @@ local glance = require("glance")
 local glance_actions = glance.actions
 
 M.close_view = function()
+  -- Close Glance if is open
+  if glance.is_open() then
+    glance_actions.close()
+    return
+  end
+
   -- Close location list or quickfix window if they are open
   for _, win in ipairs(vim.fn.getwininfo()) do
     if win['loclist'] == 1 then
@@ -80,6 +86,17 @@ M.move_down = function()
     end
   end
   print("References list is not open.")
+end
+
+M.parse_kwargs = function(args)
+  local opts = {}
+  for _, arg in ipairs(vim.split(args, " ")) do
+    local key, value = string.match(arg, "(%w+)=([%w_]+)")
+    if key and value then
+      opts[key] = value
+    end
+  end
+  return opts
 end
 
 return M

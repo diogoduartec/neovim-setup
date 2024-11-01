@@ -18,12 +18,18 @@ return {
     local lspconfig = require("lspconfig")
 
     mason_lspconfig.setup({
-      ensure_installed = { "lua_ls", "pyright" }
+      ensure_installed = { "lua_ls", "pyright", "gopls", "yamlls" }
     })
+
+    --yamlls
+    lspconfig.yamlls.setup({})
 
     --lua setup
 
     lspconfig.lua_ls.setup({})
+
+    -- go setup
+    lspconfig.gopls.setup( { capabilities = capabilities } )
 
     -- python setup
 

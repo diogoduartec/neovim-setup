@@ -32,8 +32,7 @@ return {
           changedelete = { text = '~' },
           untracked    = { text = '┆' },
         },
-        linehl = true,
-        word_diff = true,
+        linehl = false, -- highlight line
       })
     end
   }
